@@ -6,6 +6,8 @@ chmod 600 ssh.key
 
 set -ex
 
+export
+
 SSH_OPTS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 rsync -Pav \
