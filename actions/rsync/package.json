@@ -1,0 +1,19 @@
+{
+  "name": "@decentral-ee/dev-host-rsync-action",
+  "version": "1.0.0-dev",
+  "description": "Github action that rsync a file or a folder to the DevHost.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/decentral-ee/dev-host.git"
+  },
+  "author": "Miao ZhiCheng <miao@decentral.ee>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/decentral-ee/dev-host/issues"
+  },
+  "homepage": "https://github.com/decentral-ee/dev-host#readme"
+}
