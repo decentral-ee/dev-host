@@ -1,0 +1,37 @@
+name: CI Master
+
+on:
+  push:
+    paths:
+      - 'actions/rsync/**'
+      - '.github/workflows/test-actions-rsync.yml'
+jobs:
+  test:
+    name: Test rsync action
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout local code
+        uses: actions/checkout@v2"
+
+      - name: Show contexts
+        run: |
+          echo github.event_name: ${{ github.event_name }}
+          echo github.sha: ${{ github.sha }}
+          echo github.repository: ${{ github.repository }}
+          echo github.ref: ${{ github.ref }}
+          echo github.head_ref: ${{ github.head_ref }}
+          echo github.base_ref: ${{ github.base_ref }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Test rsync action locally
+        uses: ./actions/rsync
