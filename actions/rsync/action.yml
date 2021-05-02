@@ -18,7 +18,6 @@ inputs:
     required: true
   download:
     description: 'Perform download instead of upload.'
-    default: false
     required: false
 outputs:
   time: # id of output
@@ -34,4 +33,4 @@ runs:
         INPUT_DEV_HOST_SSH_KEY: ${{ inputs.ssh_key }}
         INPUT_LOCAL_PATH: ${{ inputs.local_path }}
         INPUT_REMOTE_PATH: ${{ inputs.remote_path }}
-        INPUT_DOWNLOAD: ${{ inputs.download ? "1" : "" }}
+        INPUT_DOWNLOAD: ${{ inputs.download }}
