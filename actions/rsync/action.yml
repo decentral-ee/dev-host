@@ -1,5 +1,5 @@
 name: 'DevHost rsync'
-description: 'Perform a rsync of a file or a folder to the DevHost."'
+description: 'Perform a rsync of a file or a folder to the DevHost.'
 inputs:
   hostname:
     description: 'Hostname of the DevHost server.'
