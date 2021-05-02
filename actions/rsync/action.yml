@@ -1,15 +1,30 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'DevHost rsync'
+description: 'Perform a rsync of a file or a folder to the DevHost."'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  hostname:
+    description: 'Hostname of the DevHost server.'
     required: true
-    default: 'World'
+  user:
+    description: 'User of the DevHost server.'
+    required: true
+  ssh_key:
+    description: 'SSH key for the user of the DevHost server.'
+    required: true
+  local_path:
+    description: 'Local path of the file or folder to sync.'
+    required: true
+  remote_path:
+    description: 'Remote path of the file or folder to sync.'
+    required: true
+  download:
+    description: 'Perform download instead of upload.'
+    default: false
+    required: false
 outputs:
   time: # id of output
     description: 'The time we greeted you'
 runs:
   using: 'composite'
   steps:
-    - run: ${{ github.action_path }}/hello.sh
+    - run: ${{ github.action_path }}/action.sh
       shell: bash

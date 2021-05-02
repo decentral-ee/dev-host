@@ -26,3 +26,9 @@ jobs:
 
       - name: Test rsync action locally
         uses: ./actions/rsync
+        with:
+          hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
+          user: ${{ secrets.DEV_HOST_USER }}
+          ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
+          local_path: README.md
+          remote_path: ~/dev-host-README.md
