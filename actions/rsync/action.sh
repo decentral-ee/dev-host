@@ -14,5 +14,5 @@ else
     rsync -Pav \
       -e "ssh -i ssh.key ${SSH_OPTS}" \
       ${REMOTE_PATH} \
-      ${INPUT_LOCAL_PATH} \
+      ${INPUT_LOCAL_PATH}
 fi
