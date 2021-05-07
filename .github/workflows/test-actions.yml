@@ -1,0 +1,77 @@
+name: CI - Actions
+
+on:
+  push:
+    paths:
+      - 'actions/**'
+      - '.github/workflows/test-actions.yml'
+
+jobs:
+  test:
+    name: Test actions
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout local code
+        uses: actions/checkout@v2
+
+      - name: Show contexts
+        run: |
+          echo github.event_name: ${{ github.event_name }}
+          echo github.sha: ${{ github.sha }}
+          echo github.repository: ${{ github.repository }}
+          echo github.ref: ${{ github.ref }}
+          echo github.head_ref: ${{ github.head_ref }}
+          echo github.base_ref: ${{ github.base_ref }}
+
+      - name: Create test data
+        run: |
+          mkdir tdata
+          touch tdata/file1
+          touch tdata/file2
+
+      - name: Clean remote tdata folder
+        uses: ./actions/exec
+        with:
+          hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
+          user: ${{ secrets.DEV_HOST_USER }}
+          ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
+          command: rm -rf ~/tmp/tdata
+
+      - name: Test rsync action (default upload mode)
+        uses: ./actions/rsync
+        with:
+          hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
+          user: ${{ secrets.DEV_HOST_USER }}
+          ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
+          local_path: tdata
+          remote_path: ~/tmp/
+
+      - name: Test exec action
+        id: ls_tdata
+        uses: ./actions/exec
+        with:
+          hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
+          user: ${{ secrets.DEV_HOST_USER }}
+          ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
+          command: ls ~/tmp/tdata | xargs # make it one-line
+
+      - name: Test rsync action (download mode)
+        uses: ./actions/rsync
+        with:
+          hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
+          user: ${{ secrets.DEV_HOST_USER }}
+          ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
+          local_path: tdata2
+          remote_path: ~/tmp/tdata/
+          download: true
+
+      - name: Test actions output
+        run: |
+          OUTPUT1="${{ steps.ls_tdata.outputs.command_output }}"
+          echo OUTPUT1: $OUTPUT1
+          [ "$OUTPUT1" == "file1 file2" ] || exit 1
+          OUTPUT2=$(ls tdata2 | xargs) # make it one-line
+          echo OUTPUT2: $OUTPUT2
+          [ "$OUTPUT2" == "file1 file2" ] || exit 2

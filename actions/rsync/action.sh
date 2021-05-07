@@ -1,14 +1,18 @@
 #!/bin/bash
 
-# create temporary ssh key
-echo "${INPUT_DEV_HOST_SSH_KEY}" > ssh.key
-chmod 600 ssh.key
+source actions/prepare_ssh_action.sh
 
-set -ex
-
-SSH_OPTS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-
-rsync -Pav \
-  -e "ssh -i ssh.key $SSH_OPTS" \
-  ${INPUT_LOCAL_PATH} \
-  ${INPUT_DEV_HOST_USER}@${INPUT_DEV_HOST_HOSTNAME}:${INPUT_REMOTE_PATH}
+REMOTE_PATH=${INPUT_DEV_HOST_USER}@${INPUT_DEV_HOST_HOSTNAME}:${INPUT_REMOTE_PATH}
+# We do not use "--delete", because some error in workflow could lead
+# to a wipeout of data.
+if [ -z "$INPUT_DOWNLOAD" ];then
+    rsync -Pav \
+      -e "ssh -i ssh.key ${SSH_OPTS}" \
+      ${INPUT_LOCAL_PATH} \
+      ${REMOTE_PATH}
+else
+    rsync -Pav \
+      -e "ssh -i ssh.key ${SSH_OPTS}" \
+      ${REMOTE_PATH} \
+      ${INPUT_LOCAL_PATH}
+fi
