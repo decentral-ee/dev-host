@@ -3,8 +3,9 @@ name: CI Master
 on:
   push:
     paths:
-      - 'actions/rsync/**'
+      - 'actions/**'
       - '.github/workflows/test-actions.yml'
+
 jobs:
   test:
     name: Test actions
