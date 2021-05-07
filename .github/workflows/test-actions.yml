@@ -69,5 +69,7 @@ jobs:
 
       - name: Test actions output
         run: |
-          [ "${{ steps.ls_tdata.outputs.command_output }}" == "file1 file2" ] || echo  exit 1
-          [ "$( ls tdata2 )" == "file1 file2" ] || exit 2
+          OUTPUT1="${{ steps.ls_tdata.outputs.command_output }}"
+          [ "$OUTPUT1" == "file1 file2" ] || echo  exit 1
+          OUTPUT2=$(ls tdata2)
+          [ "$OUTPUT2" == "file1 file2" ] || exit 2
