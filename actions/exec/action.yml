@@ -21,8 +21,8 @@ runs:
   steps:
     - shell: bash
       run: |
-        OUTPUT=$( ${{ github.action_path }}/action.sh )
-        echo "::set-output name=command_output::${OUTPUT}"
+        ${{ github.action_path }}/action.sh
+        echo "::set-output name=command_output::test"
       env:
         INPUT_DEV_HOST_HOSTNAME: ${{ inputs.hostname }}
         INPUT_DEV_HOST_USER: ${{ inputs.user }}
