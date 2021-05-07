@@ -32,7 +32,6 @@ jobs:
           touch tdata/file2
 
       - name: Clean remote tdata folder
-        id: ls_tdata
         uses: ./actions/exec
         with:
           hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
