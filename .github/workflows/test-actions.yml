@@ -64,10 +64,10 @@ jobs:
           user: ${{ secrets.DEV_HOST_USER }}
           ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
           local_path: tdata2
-          remote_path: ~/tmp/tdata
+          remote_path: ~/tmp/tdata/
           download: true
 
       - name: Test actions output
         run: |
-          [ "${{ steps.ls_tdata.outputs.command_output }}" == "file1 file2" ] || exit -1
-          [ "$( ls tdata2 )" == "file1 file2" ] || exit -1
+          [ "${{ steps.ls_tdata.outputs.command_output }}" == "file1 file2" ] || echo  exit 1
+          [ "$( ls tdata2 )" == "file1 file2" ] || exit 2
