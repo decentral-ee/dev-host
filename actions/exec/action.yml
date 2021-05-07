@@ -16,13 +16,15 @@ inputs:
 outputs:
   command_output: # id of output
     description: 'The output of the command.'
+    value: ${{ steps.main.outputs.command_output }}
 runs:
   using: 'composite'
   steps:
-    - shell: bash
+    - id: main
+      shell: bash
       run: |
-        ${{ github.action_path }}/action.sh
-        echo "::set-output name=command_output::test"
+        OUTPUT=$( ${{ github.action_path }}/action.sh )
+        echo "::set-output name=command_output::${OUTPUT}"
       env:
         INPUT_DEV_HOST_HOSTNAME: ${{ inputs.hostname }}
         INPUT_DEV_HOST_USER: ${{ inputs.user }}
