@@ -19,8 +19,10 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - run: ${{ github.action_path }}/action.sh
-      shell: bash
+    - shell: bash
+      run: |
+        OUTPUT=$( ${{ github.action_path }}/action.sh )
+        echo "::set-output name=command_output::${OUTPUT}"
       env:
         INPUT_DEV_HOST_HOSTNAME: ${{ inputs.hostname }}
         INPUT_DEV_HOST_USER: ${{ inputs.user }}

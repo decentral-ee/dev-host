@@ -22,8 +22,8 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - run: ${{ github.action_path }}/action.sh
-      shell: bash
+    - shell: bash
+      run: ${{ github.action_path }}/action.sh
       env:
         INPUT_DEV_HOST_HOSTNAME: ${{ inputs.hostname }}
         INPUT_DEV_HOST_USER: ${{ inputs.user }}
