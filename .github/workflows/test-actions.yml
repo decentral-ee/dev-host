@@ -72,6 +72,6 @@ jobs:
           OUTPUT1="${{ steps.ls_tdata.outputs.command_output }}"
           echo OUTPUT1: $OUTPUT1
           [ "$OUTPUT1" == "file1 file2" ] || exit 1
-          OUTPUT2=$(ls tdata2)
+          OUTPUT2=$(ls tdata2 | xargs)
           echo OUTPUT2: $OUTPUT2
           [ "$OUTPUT2" == "file1 file2" ] || exit 2
