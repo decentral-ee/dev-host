@@ -57,6 +57,17 @@ jobs:
           ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
           command: ls ~/tmp/tdata | xargs # make it oneline
 
-      - name: Test exec action output
+      - name: Test rsync action (download mode)
+        uses: ./actions/rsync
+        with:
+          hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
+          user: ${{ secrets.DEV_HOST_USER }}
+          ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
+          local_path: tdata2
+          remote_path: ~/tmp/tdata
+          download: true
+
+      - name: Test actions output
         run: |
-          [ "${{ steps.ls_tdata.outputs.command_output }}" == "files1 files2" ] || exit
+          [ "${{ steps.ls_tdata.outputs.command_output }}" == "file1 file2" ] || exit -1
+          [ "$( ls tdata2)" == "file1 file2" ] || exit -1
