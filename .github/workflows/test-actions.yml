@@ -55,7 +55,7 @@ jobs:
           hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
           user: ${{ secrets.DEV_HOST_USER }}
           ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
-          command: ls ~/tmp/tdata | xargs # make it oneline
+          command: ls ~/tmp/tdata | xargs # make it one-line
 
       - name: Test rsync action (download mode)
         uses: ./actions/rsync
@@ -72,6 +72,6 @@ jobs:
           OUTPUT1="${{ steps.ls_tdata.outputs.command_output }}"
           echo OUTPUT1: $OUTPUT1
           [ "$OUTPUT1" == "file1 file2" ] || exit 1
-          OUTPUT2=$(ls tdata2 | xargs)
+          OUTPUT2=$(ls tdata2 | xargs) # make it one-line
           echo OUTPUT2: $OUTPUT2
           [ "$OUTPUT2" == "file1 file2" ] || exit 2
