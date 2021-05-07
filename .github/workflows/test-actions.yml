@@ -31,6 +31,15 @@ jobs:
           touch tdata/file1
           touch tdata/file2
 
+      - name: Clean remote tdata folder
+        id: ls_tdata
+        uses: ./actions/exec
+        with:
+          hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
+          user: ${{ secrets.DEV_HOST_USER }}
+          ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
+          command: rm -rf ~/tmp/tdata
+
       - name: Test rsync action (default upload mode)
         uses: ./actions/rsync
         with:
@@ -51,4 +60,5 @@ jobs:
 
       - name: Test exec action output
         run: |
+          echo ${{join(steps.ls_tdata.outputs.*, '\n')}}
           [ "${{ steps.ls_tdata.outputs.command_output }}" == "files1 files2" ] || exit
