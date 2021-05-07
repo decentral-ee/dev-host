@@ -10,15 +10,12 @@ inputs:
   ssh_key:
     description: 'SSH key for the user of the DevHost server.'
     required: true
-  local_path:
-    description: 'Local path of the file or folder to sync.'
+  command:
+    description: 'The command to be executed on the DevHost.'
     required: true
-  remote_path:
-    description: 'Remote path of the file or folder to sync.'
-    required: true
-  download:
-    description: 'Perform download instead of upload.'
-    required: false
+outputs:
+  command_output: # id of output
+    description: 'The output of the command.'
 runs:
   using: 'composite'
   steps:
@@ -28,6 +25,4 @@ runs:
         INPUT_DEV_HOST_HOSTNAME: ${{ inputs.hostname }}
         INPUT_DEV_HOST_USER: ${{ inputs.user }}
         INPUT_DEV_HOST_SSH_KEY: ${{ inputs.ssh_key }}
-        INPUT_LOCAL_PATH: ${{ inputs.local_path }}
-        INPUT_REMOTE_PATH: ${{ inputs.remote_path }}
-        INPUT_DOWNLOAD: ${{ inputs.download }}
+        INPUT_COMMAND: ${{ inputs.command }}
