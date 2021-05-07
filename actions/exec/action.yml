@@ -15,7 +15,7 @@ inputs:
     required: true
 outputs:
   command_output: # id of output
-    description: 'The output of the command.'
+    description: 'The first-line output of the command.'
     value: ${{ steps.main.outputs.command_output }}
 runs:
   using: 'composite'
