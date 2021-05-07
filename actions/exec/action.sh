@@ -2,6 +2,8 @@
 
 source actions/prepare_ssh_action.sh
 
-OUTPUT=$(ssh -i ssh.key ${SSH_OPTS} -- ${INPUT_COMMAND})
+OUTPUT=$(ssh -i ssh.key ${SSH_OPTS} \
+    ${INPUT_DEV_HOST_USER}@${INPUT_DEV_HOST_HOSTNAME} -- \
+    ${INPUT_COMMAND})
 
 echo "::set-output name=command_output::${OUTPUT}"
