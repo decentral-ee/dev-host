@@ -30,6 +30,7 @@ jobs:
           mkdir tdata
           touch tdata/file1
           touch tdata/file2
+          echo 'touch ~/tmp/tdata/$1' > test-script.sh
 
       - name: Clean remote tdata folder
         uses: ./actions/exec
@@ -57,6 +58,16 @@ jobs:
           ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
           command: ls ~/tmp/tdata | xargs # make it one-line
 
+      - name: Test run-script action
+        id: ls_tdata
+        uses: ./actions/run-script
+        with:
+          hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
+          user: ${{ secrets.DEV_HOST_USER }}
+          ssh_key: ${{ secrets.DEV_HOST_SSH_KEY }}
+          script_path: test-script.sh
+          script_args: file3
+
       - name: Test rsync action (download mode)
         uses: ./actions/rsync
         with:
@@ -74,4 +85,4 @@ jobs:
           [ "$OUTPUT1" == "file1 file2" ] || exit 1
           OUTPUT2=$(ls tdata2 | xargs) # make it one-line
           echo OUTPUT2: $OUTPUT2
-          [ "$OUTPUT2" == "file1 file2" ] || exit 2
+          [ "$OUTPUT2" == "file1 file2 file3" ] || exit 2
