@@ -45,7 +45,6 @@ runs:
 
     - shell: bash
       run: ${{ github.action_path }}/../exec/action.sh
-      continue-on-error: true
       env:
         INPUT_DEV_HOST_HOSTNAME: ${{ inputs.hostname }}
         INPUT_DEV_HOST_USER: ${{ inputs.user }}
