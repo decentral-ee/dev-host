@@ -34,7 +34,6 @@ runs:
         INPUT_DEV_HOST_USER: ${{ inputs.user }}
         INPUT_DEV_HOST_SSH_KEY: ${{ inputs.ssh_key }}
         INPUT_LOCAL_PATH: ${{ inputs.script_path }}
-        INPUT_REMOTE_PATH: /tmp/
 
     - shell: bash
       run: ${{ github.action_path }}/../exec/action.sh
@@ -42,4 +41,4 @@ runs:
         INPUT_DEV_HOST_HOSTNAME: ${{ inputs.hostname }}
         INPUT_DEV_HOST_USER: ${{ inputs.user }}
         INPUT_DEV_HOST_SSH_KEY: ${{ inputs.ssh_key }}
-        INPUT_COMMAND: ${{ inputs.script_shell }} ${{ envs.INPUT_REMOTE_PATH }} -- ${{ inputs.script_args }}
+        INPUT_COMMAND: ${{ inputs.script_shell }} ${{ env.INPUT_REMOTE_PATH }} -- ${{ inputs.script_args }}
