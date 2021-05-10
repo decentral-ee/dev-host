@@ -42,4 +42,4 @@ runs:
         INPUT_DEV_HOST_HOSTNAME: ${{ inputs.hostname }}
         INPUT_DEV_HOST_USER: ${{ inputs.user }}
         INPUT_DEV_HOST_SSH_KEY: ${{ inputs.ssh_key }}
-        INPUT_COMMAND: ${{ inputs.script_shell }} ${{ env.INPUT_REMOTE_PATH }} -- ${{ inputs.script_args }}
+        INPUT_COMMAND: ${{ inputs.script_shell }} ${{ env.INPUT_REMOTE_PATH }} ${{ inputs.script_args }}
