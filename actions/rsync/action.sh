@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source actions/prepare_ssh_action.sh
+source "$(dirname "$0")"/../actions/prepare_ssh_action.sh
 
 REMOTE_PATH=${INPUT_DEV_HOST_USER}@${INPUT_DEV_HOST_HOSTNAME}:${INPUT_REMOTE_PATH}
 # We do not use "--delete", because some error in workflow could lead
