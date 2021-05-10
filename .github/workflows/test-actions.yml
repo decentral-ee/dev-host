@@ -59,7 +59,6 @@ jobs:
           command: ls ~/tmp/tdata | xargs # make it one-line
 
       - name: Test run-script action
-        id: ls_tdata
         uses: ./actions/run-script
         with:
           hostname: ${{ secrets.DEV_HOST_HOSTNAME }}
